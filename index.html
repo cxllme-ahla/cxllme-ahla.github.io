@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator Lanskap</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef2f5;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #output {
+      background: #fff;
+      padding: 15px;
+      border-left: 4px solid #28a745;
+      white-space: pre-wrap;
+      margin-top: 20px;
+    }
+    #copyBtn {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #copyBtn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Pembuat Prompt AI - Lanskap</h1>
+
+<form id="promptForm">
+  <label>Jenis Pemandangan</label>
+  <input type="text" id="jenis" oninput="generatePrompt()" placeholder="Contoh: pegunungan saat matahari terbit" />
+
+  <label>Elemen Alam</label>
+  <input type="text" id="elemen" oninput="generatePrompt()" placeholder="Contoh: sungai, pepohonan, kabut tipis" />
+
+  <label>Waktu / Atmosfer</label>
+  <input type="text" id="atmosfer" oninput="generatePrompt()" placeholder="Contoh: senja yang tenang, pagi berkabut" />
+
+  <label>Sudut Kamera / Komposisi</label>
+  <input type="text" id="kamera" oninput="generatePrompt()" placeholder="Contoh: wide shot, aerial view" />
+
+  <label>Detail Artistik</label>
+  <textarea id="detail" rows="2" oninput="generatePrompt()" placeholder="Contoh: ultra-detailed, soft lighting, 4k texture"></textarea>
+
+  <label>Gaya Visual / Artistik</label>
+  <input type="text" id="gaya" oninput="generatePrompt()" placeholder="Contoh: digital painting, Ghibli-style, watercolor" />
+
+  <label>Aspect Ratio</label>
+  <select id="rasio" onchange="generatePrompt()">
+    <option value="">-- Pilih --</option>
+    <option value="16:9">16:9 (lebar)</option>
+    <option value="4:3">4:3</option>
+    <option value="1:1">1:1</option>
+    <option value="21:9">21:9 (sinematik)</option>
+  </select>
+</form>
+
+<div id="output"><em>Prompt lanskap akan muncul di sini secara otomatis...</em></div>
+<button id="copyBtn" onclick="copyPrompt()">📋 Salin Prompt</button>
+
+<script>
+  function generatePrompt() {
+    const s = id => document.getElementById(id).value;
+    let prompt = s('jenis');
+    if (s('elemen')) prompt += `, featuring ${s('elemen')}`;
+    if (s('atmosfer')) prompt += `, atmosphere: ${s('atmosfer')}`;
+    if (s('kamera')) prompt += `, ${s('kamera')} view`;
+    if (s('detail')) prompt += `, ${s('detail')}`;
+    if (s('gaya')) prompt += `, art style: ${s('gaya')}`;
+    if (s('rasio')) prompt += `, aspect ratio: ${s('rasio')}`;
+    document.getElementById('output').textContent = "🌄 Prompt Lanskap:\n" + prompt;
+  }
+
+  function copyPrompt() {
+    const text = document.getElementById('output').textContent.replace("🌄 Prompt Lanskap:\n", "");
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById('copyBtn').textContent = "✅ Prompt Disalin!";
+      setTimeout(() => {
+        document.getElementById('copyBtn').textContent = "📋 Salin Prompt";
+      }, 2000);
+    });
+  }
+</script>
+<div>
+  <h3>Contact Person</h3>
+  <p>
+    🌐 Misskey: 
+    <a href="https://misskey.id/@awvr" target="_blank">@awvr@misskey.id</a>
+  </p>
+</div>
+<footer style="text-align: center; margin-top: 40px; font-size: 14px; color: #777;">
+  Dibuat dengan ❤️ oleh <a href="https://linktr.ee/ahladigital" target="_blank"
+  style="color: #cc3399; text-decoration: none;">@AWVR@MISSKEY.ID</a>
+</footer>
+</body>
+</html>
