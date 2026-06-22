@@ -7,7 +7,7 @@ untuk isinya di mulai dari:
 ```txt
 ---
 layout: post
-title: "Berita Pagi Ini"
+title: "Berita"
 date: 2026-06-22 09:00:00 +0700
 ---
 Ini postingan pertama hari ini.
