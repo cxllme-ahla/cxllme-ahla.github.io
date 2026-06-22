@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    <style>
+        /* Material Design 3 - Ocean Blue Theme */
+        :root {
+            /* Light Theme Variables */
+            --md-sys-color-primary: #006493;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #cae6ff;
+            --md-sys-color-on-primary-container: #001e30;
+            --md-sys-color-background: #fdfcff;
+            --md-sys-color-on-background: #1a1c1e;
+            --md-sys-color-surface: #fdfcff;
+            --md-sys-color-surface-variant: #dfe3e7;
+            --md-sys-color-on-surface: #1a1c1e;
+            --md-sys-color-outline: #73777f;
+            --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.15), 0 1px 2px 0 rgba(0,0,0,0.3);
+        }
+
+        /* Dark Theme Auto-Detection */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-primary: #8dcdff;
+                --md-sys-color-on-primary: #00344f;
+                --md-sys-color-primary-container: #004b70;
+                --md-sys-color-on-primary-container: #cae6ff;
+                --md-sys-color-background: #1a1c1e;
+                --md-sys-color-on-background: #e2e2e5;
+                --md-sys-color-surface: #1a1c1e;
+                --md-sys-color-surface-variant: #42474e;
+                --md-sys-color-on-surface: #e2e2e5;
+                --md-sys-color-outline: #8c9198;
+                --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.4), 0 1px 2px 0 rgba(0,0,0,0.5);
+            }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--md-elevation-1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav a {
+            color: var(--md-sys-color-on-primary-container);
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Material Card for Posts */
+        .card {
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            box-shadow: var(--md-elevation-1);
+        }
+        .card h2 a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        .card .date {
+            color: var(--md-sys-color-outline);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons & Pagination */
+        .btn, .pagination a, .pagination span {
+            display: inline-block;
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0.5rem 0.2rem;
+            transition: opacity 0.2s;
+        }
+        .btn:hover, .pagination a:hover { opacity: 0.9; }
+        .pagination { text-align: center; margin-top: 2rem; }
+        .pagination .current { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface); }
+
+        /* Footer */
+        footer {
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-size: 1.25rem; font-weight: bold;">{{ site.title }}</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 {{ site.title }}. Dibangun dengan GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
