@@ -4,14 +4,12 @@ cth: 2026-07-17-13-56.md
 ___
 untuk isinya di mulai dari:
 
+```txt
 title: "Optimasi Performa Website",
-
 date: "2026-06-01",
-
 tags: ["Performance", "Web"],
-
 content: `# Optimasi Performa 
-
+```
 
 
 
