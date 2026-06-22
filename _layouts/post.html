@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<article class="card" style="border: none; padding: 0;">
+    <h1 style="color: var(--md-sys-color-primary); margin-bottom: 0.5rem;">{{ page.title }}</h1>
+    <p class="date">{{ page.date | date: "%d %B %Y" }}</p>
+    
+    <div style="margin-top: 1.5rem;">
+        {{ content }}
+    </div>
+</article>
+<br>
+<a href="/" class="btn">&larr; Kembali ke Home</a>
