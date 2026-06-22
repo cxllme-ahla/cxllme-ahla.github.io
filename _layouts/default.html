@@ -125,6 +125,157 @@
             padding: 1.5rem;
             margin-top: auto;
         }
+
+            /* =========================================
+       GAYA KONTEN MARKDOWN (.post-content)
+       ========================================= */
+    .post-content {
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    /* Heading di dalam artikel */
+    .post-content h1, .post-content h2, .post-content h3, 
+    .post-content h4, .post-content h5, .post-content h6 {
+      color: var(--accent);
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      font-weight: 500;
+    }
+
+    /* Link teks */
+    .post-content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--accent);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .post-content a:hover {
+      color: var(--accent-hover);
+      border-bottom-style: solid;
+    }
+
+    /* Blockquote (Kutipan) */
+    .post-content blockquote {
+      margin: 1.5em 0;
+      padding: 0.8em 1.5em;
+      border-left: 4px solid var(--accent);
+      background-color: rgba(0, 172, 193, 0.08); /* Biru transparan */
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .post-content blockquote {
+        background-color: rgba(56, 178, 172, 0.1); /* Teal transparan untuk dark mode */
+      }
+    }
+
+    /* Tabel - Responsive & Material Style */
+    .post-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2em 0;
+      box-shadow: var(--shadow-1);
+      border-radius: var(--radius);
+      overflow: hidden; /* Menjaga sudut melengkung */
+      background-color: var(--surface);
+    }
+
+    .post-content th, .post-content td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .post-content th {
+      background-color: var(--accent);
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    .post-content tr:hover {
+      background-color: rgba(0,0,0,0.02);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .post-content th, .post-content td {
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .post-content tr:hover {
+        background-color: rgba(255,255,255,0.03);
+      }
+    }
+
+    /* Inline Code */
+    .post-content code {
+      background-color: rgba(0,0,0,0.06);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+      color: #00796b; /* Warna kontras ocean */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .post-content code {
+        background-color: rgba(255,255,255,0.1);
+        color: #81e6d9;
+      }
+    }
+
+    /* Code Block (Preformatted) - Mendukung Scroll Horizontal */
+    .post-content pre {
+      background-color: #1e293b; /* Warna gelap konsisten untuk blok kode */
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: var(--radius);
+      overflow-x: auto; /* Sangat penting untuk responsivitas UI di HP */
+      margin: 1.5em 0;
+      box-shadow: var(--shadow-1);
+    }
+
+    .post-content pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+      border-radius: 0;
+    }
+
+    /* Gambar */
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      display: block;
+      margin: 2em auto;
+    }
+
+    /* Horizontal Rule (Garis Pemisah) */
+    .post-content hr {
+      border: 0;
+      height: 1px;
+      background: var(--text-secondary);
+      opacity: 0.2;
+      margin: 3em 0;
+    }
+
+    /* List (Daftar) */
+    .post-content ul, .post-content ol {
+      padding-left: 1.5em;
+      margin: 1em 0;
+    }
+    
+    .post-content li {
+      margin-bottom: 0.5em;
+    }
+
     </style>
 </head>
 <body>
