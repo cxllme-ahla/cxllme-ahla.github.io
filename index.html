@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Blog - Catatan Perjalanan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <style>
+        :root {
+            --primary: #0277BD;
+            --primary-dark: #01579B;
+            --primary-light: #4FC3F7;
+            --secondary: #00BCD4;
+            --accent: #26C6DA;
+            --surface: #FFFFFF;
+            --background: #F5F9FC;
+            --on-surface: #212121;
+            --on-surface-variant: #616161;
+            --divider: #E0E0E0;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 2px 8px rgba(2, 119, 189, 0.12);
+            --card-shadow-hover: 0 8px 24px rgba(2, 119, 189, 0.24);
+            --header-bg: linear-gradient(135deg, #01579B 0%, #0277BD 50%, #00BCD4 100%);
+            --code-bg: #F5F5F5;
+            --blockquote-bg: #E1F5FE;
+            --blockquote-border: #0277BD;
+            --link-color: #0277BD;
+            --tag-bg: #E1F5FE;
+            --tag-color: #01579B;
+        }
+
+        [data-theme="dark"] {
+            --primary: #4FC3F7;
+            --primary-dark: #0277BD;
+            --primary-light: #B3E5FC;
+            --secondary: #26C6DA;
+            --accent: #80DEEA;
+            --surface: #1E1E2E;
+            --background: #121220;
+            --on-surface: #E0E0E0;
+            --on-surface-variant: #9E9E9E;
+            --divider: #333344;
+            --card-bg: #1E1E2E;
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --card-shadow-hover: 0 8px 24px rgba(79, 195, 247, 0.2);
+            --header-bg: linear-gradient(135deg, #0a1929 0%, #0d2137 50%, #0a2a3a 100%);
+            --code-bg: #2A2A3A;
+            --blockquote-bg: #1a2a3a;
+            --blockquote-border: #4FC3F7;
+            --link-color: #4FC3F7;
+            --tag-bg: #1a2a3a;
+            --tag-color: #4FC3F7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: var(--on-surface);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--header-bg);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .header-content {
+            padding: 24px 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #FFFFFF;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 32px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle .material-icons {
+            font-size: 24px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Blog Post Card */
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--divider);
+        }
+
+        .post-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .post-date {
+            font-size: 0.85rem;
+            color: var(--on-surface-variant);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-date .material-icons {
+            font-size: 16px;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            color: var(--tag-color);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .post-title {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--on-surface);
+            margin-bottom: 16px;
+            line-height: 1.3;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .post-title:hover {
+            color: var(--primary);
+        }
+
+        .post-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--on-surface-variant);
+        }
+
+        .post-content p {
+            margin-bottom: 16px;
+        }
+
+        .post-content h1, .post-content h2, .post-content h3 {
+            color: var(--on-surface);
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .post-content h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+
+        .post-content h3 {
+            font-size: 1.25rem;
+        }
+
+        .post-content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .post-content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .post-content blockquote {
+            background: var(--blockquote-bg);
+            border-left: 4px solid var(--blockquote-border);
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .post-content a {
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .post-content a:hover {
+            border-bottom-color: var(--link-color);
+        }
+
+        .post-content ul, .post-content ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .post-content li {
+            margin-bottom: 8px;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 40px;
+            padding: 24px 0;
+        }
+
+        .pagination-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 119, 189, 0.3);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: var(--divider);
+            color: var(--on-surface-variant);
+        }
+
+        .pagination-info {
+            font-size: 0.9rem;
+            color: var(--on-surface-variant);
+            font-weight: 500;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--on-surface-variant);
+        }
+
+        .loading .material-icons {
+            font-size: 48px;
+            animation: spin 1s linear infinite;
+            color: var(--primary);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--on-surface-variant);
+        }
+
+        .empty-state .material-icons {
+            font-size: 64px;
+            color: var(--primary-light);
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--header-bg);
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            padding: 24px;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.75rem;
+            }
+
+            .header-content {
+                padding: 20px;
+            }
+
+            .header-nav {
+                padding: 12px 20px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            .post-card {
+                padding: 20px;
+            }
+
+            .post-title {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(2, 119, 189, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(2, 119, 189, 0.5);
+        }
+
+        .scroll-top .material-icons {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://image.qwenlm.ai/public_source/363d3c0a-730e-42ec-a7a3-649ba1e8339c/1f6db4820-4991-4176-be4c-311dea83940a.png" alt="Ocean Waves" class="header-banner">
+        <div class="header-content">
+            <h1 class="header-title"> Ocean Blog</h1>
+            <p class="header-subtitle">Catatan perjalanan & pemikiran di samudra digital</p>
+        </div>
+        <nav class="header-nav">
+            <div class="nav-links">
+                <a href="/">Beranda</a>
+                <a href="#">Tentang</a>
+                <a href="#">Arsip</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <span class="material-icons" id="themeIcon">dark_mode</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="postsContainer">
+            <div class="loading">
+                <span class="material-icons">autorenew</span>
+                <p>Memuat postingan...</p>
+            </div>
+        </div>
+        <div class="pagination" id="pagination"></div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Ocean Blog • Dibuat dengan ❤️ dan Material Design</p>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+
+    <script>
+        // Sample blog posts (in real GitHub Pages, these would be loaded from _posts/ folder)
+        const samplePosts = [
+            {
+                title: "Memulai Perjalanan dengan GitHub Pages",
+                date: "2026-06-20",
+                tags: ["Tutorial", "GitHub"],
+                content: `# Memulai Perjalanan dengan GitHub Pages
+
+GitHub Pages adalah layanan hosting gratis yang memungkinkan Anda membuat website langsung dari repository GitHub. Sangat cocok untuk blog personal, portfolio, atau dokumentasi proyek.
+
+## Mengapa GitHub Pages?
+
+- **Gratis** - Tidak perlu biaya hosting
+- **Mudah** - Cukup push kode ke repository
+- **Cepat** - Didukung oleh CDN global
+- **Aman** - HTTPS otomatis
+
+## Langkah-langkah Memulai
+
+1. Buat repository baru dengan nama \`username.github.io\`
+2. Buat file \`index.html\` di root repository
+3. Push ke branch \`main\`
+4. Buka Settings > Pages dan aktifkan GitHub Pages
+
+\`\`\`javascript
+// Contoh kode sederhana
+console.log("Hello, GitHub Pages!");
+\`\`\`
+
+> "Perjalanan seribu mil dimulai dengan satu langkah" - Lao Tzu
+
+Selamat mencoba! `
+            },
+            {
+                title: "Material Design: Filosofi Desain Modern",
+                date: "2026-06-15",
+                tags: ["Design", "UI/UX"],
+                content: `# Material Design: Filosofi Desain Modern
+
+Material Design adalah sistem desain yang dikembangkan oleh Google pada tahun 2014. Sistem ini terinspirasi dari dunia fisik dan material nyata.
+
+## Prinsip Utama
+
+### 1. Material adalah Metafora
+Material Design menggunakan metafora kertas dan tinta untuk menciptakan antarmuka yang familiar.
+
+### 2. Bold, Graphic, Intentional
+Penggunaan warna yang berani, tipografi yang jelas, dan ruang putih yang disengaja.
+
+### 3. Motion Provides Meaning
+Animasi bukan sekadar dekorasi, tetapi memberikan makna dan konteks.
+
+## Palet Warna Laut
+
+Dalam proyek ini, saya menggunakan palet warna laut:
+
+- **Deep Ocean Blue** - #0277BD
+- **Teal** - #00BCD4
+- **Aqua** - #26C6DA
+
+Warna-warna ini menciptakan suasana tenang dan profesional.
+
+\`\`\`css
+:root {
+  --primary: #0277BD;
+  --secondary: #00BCD4;
+}
+\`\`\`
+
+Material Design terus berkembang dan menjadi standar industri untuk desain antarmuka modern.`
+            },
+            {
+                title: "Dark Mode: Tren yang Tak Terelakkan",
+                date: "2026-06-10",
+                tags: ["Development", "CSS"],
+                content: `# Dark Mode: Tren yang Tak Terelakkan
+
+Dark mode bukan lagi sekadar tren, tetapi telah menjadi fitur yang diharapkan pengguna modern.
+
+## Manfaat Dark Mode
+
+1. **Mengurangi kelelahan mata** - Terutama di lingkungan gelap
+2. **Menghemat baterai** - Pada layar OLED/AMOLED
+3. **Aksesibilitas** - Membantu pengguna dengan sensitivitas cahaya
+4. **Estetika** - Terlihat modern dan elegan
+
+## Implementasi dengan CSS Variables
+
+\`\`\`css
+:root {
+  --background: #FFFFFF;
+  --text: #212121;
+}
+
+[data-theme="dark"] {
+  --background: #121220;
+  --text: #E0E0E0;
+}
+\`\`\`
+
+## Tips Implementasi
+
+- Gunakan CSS custom properties untuk kemudahan switching
+- Simpan preferensi pengguna di localStorage
+- Pertimbangkan kontras yang cukup untuk aksesibilitas
+- Uji di berbagai kondisi pencahayaan
+
+Dark mode adalah investasi yang worthwhile untuk pengalaman pengguna yang lebih baik. 🌙`
+            },
+            {
+                title: "Markdown: Bahasa Penulisan yang Sederhana",
+                date: "2026-06-05",
+                tags: ["Writing", "Markdown"],
+                content: `# Markdown: Bahasa Penulisan yang Sederhana
+
+Markdown adalah bahasa markup ringan yang mudah dibaca dan ditulis. Diciptakan oleh John Gruber pada tahun 2004.
+
+## Syntax Dasar
+
+### Heading
+\`\`\`
+# Heading 1
+## Heading 2
+### Heading 3
+\`\`\`
+
+### Formatting
+- **Bold** dengan \`**text**\`
+- *Italic* dengan \`*text*\`
+- ~~Strikethrough~~ dengan \`~~text~~\`
+
+### Lists
+- Item 1
+- Item 2
+  - Sub-item
+
+### Code Blocks
+\`\`\`javascript
+function hello() {
+  console.log("Hello, Markdown!");
+}
+\`\`\`
+
+## Mengapa Markdown?
+
+Markdown populer karena:
+- **Sederhana** - Mudah dipelajari
+- **Portable** - Bisa dibaca di mana saja
+- **Versatile** - Digunakan di GitHub, Reddit, Discord, dll
+- **Fokus pada konten** - Bukan formatting
+
+Markdown adalah pilihan sempurna untuk blogging dan dokumentasi.`
+            },
+            {
+                title: "Optimasi Performa Website",
+                date: "2026-06-01",
+                tags: ["Performance", "Web"],
+                content: `# Optimasi Performa Website
+
+Performa website adalah faktor kritis untuk pengalaman pengguna dan SEO.
+
+## Metrik Penting
+
+### Core Web Vitals
+- **LCP** (Largest Contentful Paint) - < 2.5s
+- **FID** (First Input Delay) - < 100ms
+- **CLS** (Cumulative Layout Shift) - < 0.1
+
+## Tips Optimasi
+
+### 1. Optimasi Gambar
+- Gunakan format modern (WebP, AVIF)
+- Compress gambar sebelum upload
+- Implement lazy loading
+
+### 2. Minimize Resources
+\`\`\`bash
+# Minify CSS dan JS
+npm run build
+\`\`\`
+
+### 3. Caching
+- Gunakan service workers
+- Set cache headers yang tepat
+- Implement CDN
+
+### 4. Code Splitting
+- Load hanya kode yang diperlukan
+- Dynamic imports untuk fitur opsional
+
+## Tools untuk Testing
+
+- Google PageSpeed Insights
+- Lighthouse
+- WebPageTest
+
+Performa yang baik = pengguna yang bahagia! ⚡`
+            },
+            {
+                title: "CSS Grid vs Flexbox: Kapan Menggunakan yang Mana?",
+                date: "2026-05-28",
+                tags: ["CSS", "Layout"],
+                content: `# CSS Grid vs Flexbox
+
+Dua sistem layout modern yang sering membingungkan developer. Mari kita bahas perbedaan dan kasus penggunaannya.
+
+## Flexbox: One-Dimensional Layout
+
+Flexbox ideal untuk layout satu dimensi (baris ATAU kolom).
+
+\`\`\`css
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+\`\`\`
+
+**Kapan menggunakan Flexbox:**
+- Navigation bars
+- Card layouts sederhana
+- Centering elements
+- Distributing space evenly
+
+## CSS Grid: Two-Dimensional Layout
+
+Grid ideal untuk layout dua dimensi (baris DAN kolom).
+
+\`\`\`css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+\`\`\`
+
+**Kapan menggunakan Grid:**
+- Page layouts
+- Complex card grids
+- Image galleries
+- Dashboard layouts
+
+## Kombinasi Keduanya
+
+Seringkali, kombinasi Grid dan Flexbox memberikan hasil terbaik:
+
+- **Grid** untuk layout halaman utama
+- **Flexbox** untuk komponen dalam grid
+
+Keduanya bukan kompetitor, melainkan pelengkap! 🎯`
+            },
+            {
+                title: "JavaScript ES2024: Fitur Terbaru",
+                date: "2026-05-25",
+                tags: ["JavaScript", "ES2024"],
+                content: `# JavaScript ES2024: Fitur Terbaru
+
+ECMAScript 2024 membawa beberapa fitur menarik yang membuat JavaScript lebih powerful.
+
+## Fitur Baru
+
+### 1. Array Grouping
+\`\`\`javascript
+const people = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 25 }
+];
+
+const grouped = Object.groupBy(people, person => person.age);
+// { 25: [{name: 'Alice', age: 25}, {name: 'Charlie', age: 25}], 30: [{name: 'Bob', age: 30}] }
+\`\`\`
+
+### 2. Promise.withResolvers()
+\`\`\`javascript
+const { promise, resolve, reject } = Promise.withResolvers();
+
+// Sekarang bisa resolve/reject dari luar
+setTimeout(() => resolve('Done!'), 1000);
+\`\`\`
+
+### 3. Temporal API (Coming Soon)
+API baru untuk manipulasi tanggal dan waktu yang lebih baik.
+
+## Mengapa Update Penting?
+
+- **Performa** lebih baik
+- **Developer experience** meningkat
+- **Kode lebih bersih** dan mudah dibaca
+- **Fitur modern** untuk masalah kompleks
+
+Selalu update knowledge Anda dengan fitur JavaScript terbaru! 🚀`
+            },
+            {
+                title: "Belajar Git: Version Control untuk Pemula",
+                date: "2026-05-20",
+                tags: ["Git", "Tutorial"],
+                content: `# Belajar Git: Version Control untuk Pemula
+
+Git adalah sistem version control yang wajib dikuasai setiap developer.
+
+## Konsep Dasar
+
+### Repository
+Tempat menyimpan kode dan history perubahan.
+
+### Commit
+Snapshot dari perubahan kode pada waktu tertentu.
+
+### Branch
+Versi paralel dari kode untuk pengembangan fitur.
+
+## Perintah Penting
+
+\`\`\`bash
+# Inisialisasi repository
+git init
+
+# Cek status
+git status
+
+# Tambah file ke staging
+git add .
+
+# Commit perubahan
+git commit -m "Pesan commit"
+
+# Push ke remote
+git push origin main
+
+# Buat branch baru
+git checkout -b feature-branch
+
+# Merge branch
+git merge feature-branch
+\`\`\`
+
+## Best Practices
+
+1. **Commit sering** dengan pesan yang jelas
+2. **Gunakan branch** untuk fitur baru
+3. **Review code** sebelum merge
+4. **Jangan commit** file sensitif
+
+Git adalah investasi waktu yang sangat worthwhile untuk career developer! `
+            },
+            {
+                title: "Responsive Design: Website untuk Semua Perangkat",
+                date: "2026-05-15",
+                tags: ["Responsive", "Mobile"],
+                content: `# Responsive Design: Website untuk Semua Perangkat
+
+Di era mobile-first, responsive design bukan lagi pilihan, tetapi keharusan.
+
+## Prinsip Responsive Design
+
+### 1. Mobile First
+Desain untuk mobile terlebih dahulu, kemudian scale up.
+
+### 2. Fluid Layouts
+Gunakan persentase dan unit relatif, bukan pixel tetap.
+
+### 3. Media Queries
+\`\`\`css
+/* Mobile */
+.container {
+  padding: 16px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .container {
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+\`\`\`
+
+## Tips Implementasi
+
+- **Viewport meta tag** wajib ada
+- **Flexible images** dengan max-width: 100%
+- **Touch-friendly** buttons (min 44x44px)
+- **Test** di berbagai perangkat
+
+Responsive design memastikan website Anda terlihat bagus di semua perangkat! 📱`
+            }
+        ];
+
+        // Blog configuration
+        const POSTS_PER_PAGE = 3;
+        let currentPage = 1;
+        let allPosts = [];
+
+        // Theme management
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Load posts
+        async function loadPosts() {
+            const postsContainer = document.getElementById('postsContainer');
+            
+            try {
+                // Try to load from _posts/ folder (for real GitHub Pages setup)
+                const postFiles = [
+                    '2026-06-20-memulai-perjalanan.md',
+                    '2026-06-15-material-design.md',
+                    '2026-06-10-dark-mode.md',
+                    '2026-06-05-markdown.md',
+                    '2026-06-01-optimasi-performa.md',
+                    '2026-05-28-css-grid-vs-flexbox.md',
+                    '2026-05-25-javascript-es2024.md',
+                    '2026-05-20-belajar-git.md',
+                    '2026-05-15-responsive-design.md'
+                ];
+
+                const posts = [];
+                let loadedFromFile = false;
+
+                for (const file of postFiles) {
+                    try {
+                        const response = await fetch(`_posts/${file}`);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const post = parseMarkdownFile(file, content);
+                            posts.push(post);
+                            loadedFromFile = true;
+                        }
+                    } catch (e) {
+                        // File not found, continue
+                    }
+                }
+
+                if (loadedFromFile && posts.length > 0) {
+                    allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                } else {
+                    // Fallback to sample posts
+                    allPosts = samplePosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                }
+
+                renderPosts();
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                allPosts = samplePosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                renderPosts();
+            }
+        }
+
+        function parseMarkdownFile(filename, content) {
+            // Extract date and title from filename
+            const match = filename.match(/^(\\d{4}-\\d{2}-\\d{2})-(.+)\\.md$/);
+            const date = match ? match[1] : new Date().toISOString().split('T')[0];
+            const title = match ? match[2].replace(/-/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase()) : 'Untitled';
+            
+            return {
+                title: title,
+                date: date,
+                tags: ['Blog'],
+                content: content
+            };
+        }
+
+        function renderPosts() {
+            const postsContainer = document.getElementById('postsContainer');
+            const paginationContainer = document.getElementById('pagination');
+
+            if (allPosts.length === 0) {
+                postsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <span class="material-icons">inbox</span>
+                        <h3>Belum ada postingan</h3>
+                        <p>Mulai menulis blog post pertama Anda!</p>
+                    </div>
+                `;
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+            const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+            const endIndex = startIndex + POSTS_PER_PAGE;
+            const postsToShow = allPosts.slice(startIndex, endIndex);
+
+            postsContainer.innerHTML = postsToShow.map(post => `
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-date">
+                            <span class="material-icons">calendar_today</span>
+                            ${formatDate(post.date)}
+                        </span>
+                        <div class="post-tags">
+                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <h2 class="post-title">${post.title}</h2>
+                    <div class="post-content">${marked.parse(post.content)}</div>
+                </article>
+            `).join('');
+
+            // Apply syntax highlighting
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+
+            // Render pagination
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const paginationContainer = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            paginationContainer.innerHTML = `
+                <button class="pagination-btn" id="prevBtn" ${currentPage === 1 ? 'disabled' : ''}>
+                    <span class="material-icons">chevron_left</span>
+                    Sebelumnya
+                </button>
+                <span class="pagination-info">Halaman ${currentPage} dari ${totalPages}</span>
+                <button class="pagination-btn" id="nextBtn" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Selanjutnya
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            `;
+
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPosts();
+                    scrollToTop();
+                }
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPosts();
+                    scrollToTop();
+                }
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('id-ID', options);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', scrollToTop);
+
+        // Initialize
+        initTheme();
+        loadPosts();
+    </script>
+</body>
+</html>
+
