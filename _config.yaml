@@ -1,10 +1,9 @@
-title: "Jurnal Samudra"
-description: "Eksplorasi dan Catatan"
-baseurl: "" 
-url: "https://username-anda.github.io" # Ganti dengan URL GitHub Pages Anda
-
-# Pengaturan Paginasi
+title: "Blog Biru Laut"
+description: "Blog responsif dengan desain Material 3"
+url: "https://cxllme-ahla.github.io" # Isi dengan URL GitHub Pages Anda nantinya (contoh: https://username.github.io)
 plugins:
   - jekyll-paginate
+
+# Pengaturan Pagination
 paginate: 3
 paginate_path: "/page:num/"
