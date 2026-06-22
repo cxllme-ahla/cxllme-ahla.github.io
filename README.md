@@ -5,10 +5,13 @@ ___
 untuk isinya di mulai dari:
 
 ```txt
-title: "Optimasi Performa Website",
-date: "2026-06-01",
-tags: ["Performance", "Web"],
-content: `# Optimasi Performa 
+---
+layout: post
+title: "Berita Pagi Ini"
+date: 2026-06-22 09:00:00 +0700
+---
+Ini postingan pertama hari ini.
+
 ```
 
 
