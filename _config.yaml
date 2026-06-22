@@ -5,5 +5,5 @@ plugins:
   - jekyll-paginate
 
 # Pengaturan Pagination
-paginate: 3
+paginate: 5
 paginate_path: "/page:num/"
