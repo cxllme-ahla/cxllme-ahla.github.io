@@ -37,6 +37,45 @@
                 --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.4), 0 1px 2px 0 rgba(0,0,0,0.5);
             }
         }
+        	/* =========================================
+   VARIABEL UTAMA (LIGHT MODE - TEMA LAUT)
+   ========================================= */
+:root {
+  /* Palet Warna Laut */
+  --bg-color: #e0f7fa;        /* Cyan Laut Dangkal */
+  --surface: #ffffff;         /* Putih Bersih untuk Material Card */
+  --text-primary: #004d40;    /* Hijau Laut Dalam (Teks Utama) */
+  --text-secondary: #00796b;  /* Teal (Teks Sekunder/Tanggal) */
+  --accent: #39c5bb;          /* Cyan Khas Karakter Digital / Air Jernih */
+  --accent-hover: #31a69d;    /* Cyan Gelap saat tombol disorot */
+
+  /* Material Design Shadows */
+  --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  
+  /* Radius Sudut */
+  --radius: 8px;
+}
+
+/* =========================================
+   VARIABEL DARK MODE (OTOMATIS)
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Palet Warna Palung Laut */
+    --bg-color: #0b192c;      /* Biru Gelap Kedalaman Laut */
+    --surface: #1a365d;       /* Biru Navy untuk Material Card */
+    --text-primary: #e2e8f0;  /* Busa Ombak (Putih Terang agar terbaca) */
+    --text-secondary: #81e6d9; /* Cyan Neon / Pendaran Ubur-ubur */
+    --accent: #39c5bb;        /* Cyan Terang tetap dipertahankan */
+    --accent-hover: #4fd1c5;  /* Cyan Neon Terang saat tombol disorot */
+    
+    /* Shadow yang lebih halus untuk Dark Mode */
+    --shadow-1: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-2: 0 10px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
