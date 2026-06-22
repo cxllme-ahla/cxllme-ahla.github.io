@@ -1,726 +1,168 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocean Blog - Catatan Perjalanan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <style>
-        :root {
-            --primary: #0277BD;
-            --primary-dark: #01579B;
-            --primary-light: #4FC3F7;
-            --secondary: #00BCD4;
-            --accent: #26C6DA;
-            --surface: #FFFFFF;
-            --background: #F5F9FC;
-            --on-surface: #212121;
-            --on-surface-variant: #616161;
-            --divider: #E0E0E0;
-            --card-bg: #FFFFFF;
-            --card-shadow: 0 2px 8px rgba(2, 119, 189, 0.12);
-            --card-shadow-hover: 0 8px 24px rgba(2, 119, 189, 0.24);
-            --header-bg: linear-gradient(135deg, #01579B 0%, #0277BD 50%, #00BCD4 100%);
-            --code-bg: #F5F5F5;
-            --blockquote-bg: #E1F5FE;
-            --blockquote-border: #0277BD;
-            --link-color: #0277BD;
-            --tag-bg: #E1F5FE;
-            --tag-color: #01579B;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }}</title>
+  <style>
+    /* Material Design & Variabel Warna Laut (Light Mode) */
+    :root {
+      --bg-color: #e0f7fa;        /* Light Cyan */
+      --surface: #ffffff;
+      --text-primary: #004d40;    /* Deep Sea Green */
+      --text-secondary: #00796b;  /* Teal */
+      --accent: #00acc1;          /* Ocean Blue */
+      --accent-hover: #00838f;
+      --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      --radius: 8px;
+    }
 
-        [data-theme="dark"] {
-            --primary: #4FC3F7;
-            --primary-dark: #0277BD;
-            --primary-light: #B3E5FC;
-            --secondary: #26C6DA;
-            --accent: #80DEEA;
-            --surface: #1E1E2E;
-            --background: #121220;
-            --on-surface: #E0E0E0;
-            --on-surface-variant: #9E9E9E;
-            --divider: #333344;
-            --card-bg: #1E1E2E;
-            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-            --card-shadow-hover: 0 8px 24px rgba(79, 195, 247, 0.2);
-            --header-bg: linear-gradient(135deg, #0a1929 0%, #0d2137 50%, #0a2a3a 100%);
-            --code-bg: #2A2A3A;
-            --blockquote-bg: #1a2a3a;
-            --blockquote-border: #4FC3F7;
-            --link-color: #4FC3F7;
-            --tag-bg: #1a2a3a;
-            --tag-color: #4FC3F7;
-        }
+    /* Dark Mode Otomatis */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0b192c;      /* Palung Laut Gelap */
+        --surface: #1a365d;       /* Biru Laut Dalam */
+        --text-primary: #e2e8f0;  /* Busa Ombak (Putih Terang) */
+        --text-secondary: #81e6d9; /* Cyan Neon */
+        --accent: #38b2ac;        /* Teal Terang */
+        --accent-hover: #4fd1c5;
+      }
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background);
-            color: var(--on-surface);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            min-height: 100vh;
-        }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
 
-        /* Header */
-        .header {
-            background: var(--header-bg);
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-        .header-banner {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
+    header h1 {
+      color: var(--accent);
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+    }
 
-        .header-content {
-            padding: 24px 32px;
-            position: relative;
-            z-index: 2;
-        }
+    /* Material Card Style */
+    .post-card {
+      background-color: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    }
 
-        .header-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: #FFFFFF;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .post-card:hover {
+      box-shadow: var(--shadow-2);
+    }
 
-        .header-subtitle {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 8px;
-            font-weight: 400;
-        }
+    .post-title {
+      margin: 0 0 10px 0;
+      font-size: 1.5rem;
+    }
 
-        .header-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 32px;
-            background: rgba(0, 0, 0, 0.1);
-        }
+    .post-title a {
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
+    .post-title a:hover {
+      color: var(--accent);
+    }
 
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
+    .post-meta {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
 
-        .nav-links a:hover {
-            color: #FFFFFF;
-        }
+    /* Paginasi */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      font-weight: 500;
+    }
 
-        /* Dark Mode Toggle */
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
+    .btn {
+      background-color: var(--accent);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: var(--shadow-1);
+      transition: background-color 0.2s, box-shadow 0.2s;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      letter-spacing: 0.5px;
+    }
 
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-        }
+    .btn:hover {
+      background-color: var(--accent-hover);
+      box-shadow: var(--shadow-2);
+    }
 
-        .theme-toggle .material-icons {
-            font-size: 24px;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 32px 24px;
-        }
-
-        /* Blog Post Card */
-        .post-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 28px;
-            margin-bottom: 24px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--divider);
-        }
-
-        .post-card:hover {
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-2px);
-        }
-
-        .post-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .post-date {
-            font-size: 0.85rem;
-            color: var(--on-surface-variant);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .post-date .material-icons {
-            font-size: 16px;
-        }
-
-        .post-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: var(--tag-bg);
-            color: var(--tag-color);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .post-title {
-            font-size: 1.75rem;
-            font-weight: 500;
-            color: var(--on-surface);
-            margin-bottom: 16px;
-            line-height: 1.3;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .post-title:hover {
-            color: var(--primary);
-        }
-
-        .post-content {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--on-surface-variant);
-        }
-
-        .post-content p {
-            margin-bottom: 16px;
-        }
-
-        .post-content h1, .post-content h2, .post-content h3 {
-            color: var(--on-surface);
-            margin-top: 24px;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .post-content h2 {
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 8px;
-        }
-
-        .post-content h3 {
-            font-size: 1.25rem;
-        }
-
-        .post-content code {
-            background: var(--code-bg);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9em;
-        }
-
-        .post-content pre {
-            background: var(--code-bg);
-            padding: 16px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 16px 0;
-        }
-
-        .post-content pre code {
-            background: none;
-            padding: 0;
-        }
-
-        .post-content blockquote {
-            background: var(--blockquote-bg);
-            border-left: 4px solid var(--blockquote-border);
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-        }
-
-        .post-content a {
-            color: var(--link-color);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-
-        .post-content a:hover {
-            border-bottom-color: var(--link-color);
-        }
-
-        .post-content ul, .post-content ol {
-            margin: 16px 0;
-            padding-left: 24px;
-        }
-
-        .post-content li {
-            margin-bottom: 8px;
-        }
-
-        .post-content img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 16px 0;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            margin-top: 40px;
-            padding: 24px 0;
-        }
-
-        .pagination-btn {
-            background: var(--card-bg);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 24px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .pagination-btn:hover:not(:disabled) {
-            background: var(--primary);
-            color: #FFFFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(2, 119, 189, 0.3);
-        }
-
-        .pagination-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            border-color: var(--divider);
-            color: var(--on-surface-variant);
-        }
-
-        .pagination-info {
-            font-size: 0.9rem;
-            color: var(--on-surface-variant);
-            font-weight: 500;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--on-surface-variant);
-        }
-
-        .loading .material-icons {
-            font-size: 48px;
-            animation: spin 1s linear infinite;
-            color: var(--primary);
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--on-surface-variant);
-        }
-
-        .empty-state .material-icons {
-            font-size: 64px;
-            color: var(--primary-light);
-            margin-bottom: 16px;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--header-bg);
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            padding: 24px;
-            margin-top: 40px;
-        }
-
-        .footer p {
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-title {
-                font-size: 1.75rem;
-            }
-
-            .header-content {
-                padding: 20px;
-            }
-
-            .header-nav {
-                padding: 12px 20px;
-            }
-
-            .container {
-                padding: 20px 16px;
-            }
-
-            .post-card {
-                padding: 20px;
-            }
-
-            .post-title {
-                font-size: 1.4rem;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: var(--primary);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(2, 119, 189, 0.4);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 100;
-        }
-
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(2, 119, 189, 0.5);
-        }
-
-        .scroll-top .material-icons {
-            font-size: 24px;
-        }
-    </style>
+    .btn.disabled {
+      background-color: var(--text-secondary);
+      opacity: 0.5;
+      pointer-events: none;
+      box-shadow: none;
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <img src="https://image.qwenlm.ai/public_source/363d3c0a-730e-42ec-a7a3-649ba1e8339c/1f6db4820-4991-4176-be4c-311dea83940a.png" alt="Ocean Waves" class="header-banner">
-        <div class="header-content">
-            <h1 class="header-title"> Ocean Blog</h1>
-            <p class="header-subtitle">Catatan perjalanan & pemikiran di samudra digital</p>
-        </div>
-        <nav class="header-nav">
-            <div class="nav-links">
-                <a href="/">Beranda</a>
-                <a href="#">Tentang</a>
-                <a href="#">Arsip</a>
-            </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <span class="material-icons" id="themeIcon">dark_mode</span>
-            </button>
-        </nav>
+
+  <div class="container">
+    <header>
+      <h1>{{ site.title }}</h1>
+      <p style="color: var(--text-secondary);">{{ site.description }}</p>
     </header>
 
-    <main class="container">
-        <div id="postsContainer">
-            <div class="loading">
-                <span class="material-icons">autorenew</span>
-                <p>Memuat postingan...</p>
-            </div>
+    {% for post in paginator.posts %}
+      <article class="post-card">
+        <h2 class="post-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+        <div class="post-meta">{{ post.date | date: "%d %B %Y" }}</div>
+        <div class="post-excerpt">
+          {{ post.excerpt }}
         </div>
-        <div class="pagination" id="pagination"></div>
-    </main>
+      </article>
+    {% endfor %}
 
-    <footer class="footer">
-        <p>© 2026 Ocean Blog • Dibuat dengan ❤️ dan Material Design</p>
-    </footer>
+    <div class="pagination">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="btn">&laquo; Post Baru</a>
+      {% else %}
+        <span class="btn disabled">&laquo; Post Baru</span>
+      {% endif %}
 
-    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-        <span class="material-icons">keyboard_arrow_up</span>
-    </button>
+      <span style="color: var(--text-secondary);">Halaman {{ paginator.page }} dari {{ paginator.total_pages }}</span>
 
-    <script>
-        // Blog configuration
-        const POSTS_PER_PAGE = 3;
-        let currentPage = 1;
-        let allPosts = [];
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="btn">Post Lama &raquo;</a>
+      {% else %}
+        <span class="btn disabled">Post Lama &raquo;</span>
+      {% endif %}
+    </div>
+  </div>
 
-        // Theme management
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
-            updateThemeIcon(theme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-
-        function updateThemeIcon(theme) {
-            themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-
-        // Load posts
-        async function loadPosts() {
-            const postsContainer = document.getElementById('postsContainer');
-            
-            try {
-                // Try to load from _posts/ folder (for real GitHub Pages setup)
-                const postFiles = [
-                    '2026-06-20-memulai-perjalanan.md',
-                    '2026-06-15-material-design.md',
-                    '2026-06-10-dark-mode.md',
-                    '2026-06-05-markdown.md',
-                    '2026-06-01-optimasi-performa.md',
-                    '2026-05-28-css-grid-vs-flexbox.md',
-                    '2026-05-25-javascript-es2024.md',
-                    '2026-05-20-belajar-git.md',
-                    '2026-05-15-responsive-design.md'
-                ];
-
-                const posts = [];
-                let loadedFromFile = false;
-
-                for (const file of postFiles) {
-                    try {
-                        const response = await fetch(`_posts/${file}`);
-                        if (response.ok) {
-                            const content = await response.text();
-                            const post = parseMarkdownFile(file, content);
-                            posts.push(post);
-                            loadedFromFile = true;
-                        }
-                    } catch (e) {
-                        // File not found, continue
-                    }
-                }
-
-                if (loadedFromFile && posts.length > 0) {
-                    allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-                } else {
-                    // Fallback to sample posts
-                    allPosts = samplePosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-                }
-
-                renderPosts();
-            } catch (error) {
-                console.error('Error loading posts:', error);
-                allPosts = samplePosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-                renderPosts();
-            }
-        }
-
-        function parseMarkdownFile(filename, content) {
-            // Extract date and title from filename
-            const match = filename.match(/^(\\d{4}-\\d{2}-\\d{2})-(.+)\\.md$/);
-            const date = match ? match[1] : new Date().toISOString().split('T')[0];
-            const title = match ? match[2].replace(/-/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase()) : 'Untitled';
-            
-            return {
-                title: title,
-                date: date,
-                tags: ['Blog'],
-                content: content
-            };
-        }
-
-        function renderPosts() {
-            const postsContainer = document.getElementById('postsContainer');
-            const paginationContainer = document.getElementById('pagination');
-
-            if (allPosts.length === 0) {
-                postsContainer.innerHTML = `
-                    <div class="empty-state">
-                        <span class="material-icons">inbox</span>
-                        <h3>Belum ada postingan</h3>
-                        <p>Mulai menulis blog post pertama Anda!</p>
-                    </div>
-                `;
-                paginationContainer.innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-            const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-            const endIndex = startIndex + POSTS_PER_PAGE;
-            const postsToShow = allPosts.slice(startIndex, endIndex);
-
-            postsContainer.innerHTML = postsToShow.map(post => `
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="post-date">
-                            <span class="material-icons">calendar_today</span>
-                            ${formatDate(post.date)}
-                        </span>
-                        <div class="post-tags">
-                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                    <h2 class="post-title">${post.title}</h2>
-                    <div class="post-content">${marked.parse(post.content)}</div>
-                </article>
-            `).join('');
-
-            // Apply syntax highlighting
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-            });
-
-            // Render pagination
-            renderPagination(totalPages);
-        }
-
-        function renderPagination(totalPages) {
-            const paginationContainer = document.getElementById('pagination');
-
-            if (totalPages <= 1) {
-                paginationContainer.innerHTML = '';
-                return;
-            }
-
-            paginationContainer.innerHTML = `
-                <button class="pagination-btn" id="prevBtn" ${currentPage === 1 ? 'disabled' : ''}>
-                    <span class="material-icons">chevron_left</span>
-                    Sebelumnya
-                </button>
-                <span class="pagination-info">Halaman ${currentPage} dari ${totalPages}</span>
-                <button class="pagination-btn" id="nextBtn" ${currentPage === totalPages ? 'disabled' : ''}>
-                    Selanjutnya
-                    <span class="material-icons">chevron_right</span>
-                </button>
-            `;
-
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderPosts();
-                    scrollToTop();
-                }
-            });
-
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderPosts();
-                    scrollToTop();
-                }
-            });
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('id-ID', options);
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        });
-
-        scrollTopBtn.addEventListener('click', scrollToTop);
-
-        // Initialize
-        initTheme();
-        loadPosts();
-    </script>
 </body>
 </html>
-
