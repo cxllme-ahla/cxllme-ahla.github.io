@@ -1,0 +1,10 @@
+title: "Jurnal Samudra"
+description: "Eksplorasi dan Catatan"
+baseurl: "" 
+url: "https://username-anda.github.io" # Ganti dengan URL GitHub Pages Anda
+
+# Pengaturan Paginasi
+plugins:
+  - jekyll-paginate
+paginate: 3
+paginate_path: "/page:num/"
