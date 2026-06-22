@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Kumpulan Prompt part 1"
-date: 2026-06-24 03:04:00 +0700
+date: 2026-06-23 03:04:00 +0700
 ---
 Ini postingan pertama hari ini.
 
