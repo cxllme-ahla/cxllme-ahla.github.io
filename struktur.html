@@ -3,25 +3,18 @@ layout: default
 title: Struktur Organisasi
 ---
 <h2>Struktur Pengurus</h2>
-<div id="skeleton-struktur" class="card skeleton" style="height: 100px;"></div>
+<div id="data-struktur" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+  
+  {% for anggota in site.data.pengurus %}
+  <div class="card" style="display: flex; align-items: center; gap: 16px;">
+    <div style="width: 60px; height: 60px; background: var(--surface); border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <img src="{{ anggota.foto }}" alt="{{ anggota.nama }}" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <div>
+      <h3 style="margin-bottom: 4px;">{{ anggota.nama }}</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">{{ anggota.jabatan }}</p>
+    </div>
+  </div>
+  {% endfor %}
 
-<div id="data-struktur" style="display:none; gap: 16px; margin-top: 16px;">
-  <div class="card" style="display: flex; align-items: center; gap: 16px;">
-    <div style="width: 60px; height: 60px; background: var(--surface); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-      <span class="material-symbols-outlined">person</span>
-    </div>
-    <div>
-      <h3 style="margin-bottom: 4px;">Budi Santoso</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Ketua Umum</p>
-    </div>
-  </div>
-  <div class="card" style="display: flex; align-items: center; gap: 16px;">
-    <div style="width: 60px; height: 60px; background: var(--surface); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-      <span class="material-symbols-outlined">person</span>
-    </div>
-    <div>
-      <h3 style="margin-bottom: 4px;">Miku H.</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">Divisi Humas & Kreatif</p>
-    </div>
-  </div>
 </div>
