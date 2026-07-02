@@ -1,9 +1,15 @@
-title: "Blog Biru Laut"
-description: "Blog responsif dengan desain Material 3"
-url: "https://cxllme-ahla.github.io" # Isi dengan URL GitHub Pages Anda nantinya (contoh: https://username.github.io)
+title: Karang Taruna App
+description: Web-App Resmi Organisasi Karang Taruna
+url: "https://cxllme-ahla.github.io" 
+theme: minima # Base theme (akan kita override penuh)
 plugins:
-  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
 
-# Pengaturan Pagination
-paginate: 5
-paginate_path: "/page:num/"
+# Default Front Matter  
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
