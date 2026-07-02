@@ -88,9 +88,9 @@ Assalamu'alaikum Wr. Wb. / Salam Sejahtera,
 Dengan hormat,
 Sehubungan dengan akan dilaksanakannya ${acara}, kami mengundang Bapak/Ibu/Saudara/i untuk dapat hadir pada:
   
-Hari/Tanggal	: ${tanggal}
-Waktu					: ${waktu} WIB - Selesai
-Tempat				: ${lokasi}
+Hari/Tanggal : ${tanggal}
+Waktu        : ${waktu} WIB - Selesai
+Tempat       : ${lokasi}
   
 Mengingat pentingnya agenda tersebut, kami sangat mengharapkan kehadiran tepat waktu.
   
