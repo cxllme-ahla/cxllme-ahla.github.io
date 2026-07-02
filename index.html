@@ -1,28 +1,16 @@
 ---
 layout: default
 ---
-
-<div class="post-list">
-  {% for post in paginator.posts %}
-    <div class="card">
-      <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-      <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
-      <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-      <a href="{{ site.baseurl }}{{ post.url }}" class="btn">Baca selengkapnya</a>
-    </div>
-  {% endfor %}
+<div style="margin-bottom: 16px;">
+  <h2>Laporan Kegiatan</h2>
 </div>
 
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous">Sebelumnya</a>
-  {% endif %}
-
-  <span class="current">Halaman {{ paginator.page }} dari {{ paginator.total_pages }}</span>
-
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next">Selanjutnya</a>
-  {% endif %}
-</div>
-{% endif %}
+{% for post in site.posts %}
+<a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+  <div class="card">
+    <h3 style="color: var(--primary);">{{ post.title }}</h3>
+    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">{{ post.date | date: "%d %b %Y" }}</p>
+    <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+  </div>
+</a>
+{% endfor %}
