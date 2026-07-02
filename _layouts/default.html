@@ -1,339 +1,58 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.title }}</title>
-    <style>
-        /* Material Design 3 - Ocean Blue Theme */
-        :root {
-            /* Light Theme Variables */
-            --md-sys-color-primary: #006493;
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #cae6ff;
-            --md-sys-color-on-primary-container: #001e30;
-            --md-sys-color-background: #fdfcff;
-            --md-sys-color-on-background: #1a1c1e;
-            --md-sys-color-surface: #fdfcff;
-            --md-sys-color-surface-variant: #dfe3e7;
-            --md-sys-color-on-surface: #1a1c1e;
-            --md-sys-color-outline: #73777f;
-            --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.15), 0 1px 2px 0 rgba(0,0,0,0.3);
-        }
-
-        /* Dark Theme Auto-Detection */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --md-sys-color-primary: #8dcdff;
-                --md-sys-color-on-primary: #00344f;
-                --md-sys-color-primary-container: #004b70;
-                --md-sys-color-on-primary-container: #cae6ff;
-                --md-sys-color-background: #1a1c1e;
-                --md-sys-color-on-background: #e2e2e5;
-                --md-sys-color-surface: #1a1c1e;
-                --md-sys-color-surface-variant: #42474e;
-                --md-sys-color-on-surface: #e2e2e5;
-                --md-sys-color-outline: #8c9198;
-                --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.4), 0 1px 2px 0 rgba(0,0,0,0.5);
-            }
-        }
-        	/* =========================================
-   VARIABEL UTAMA (LIGHT MODE - TEMA LAUT)
-   ========================================= */
-:root {
-  /* Palet Warna Laut */
-  --bg-color: #e0f7fa;        /* Cyan Laut Dangkal */
-  --surface: #ffffff;         /* Putih Bersih untuk Material Card */
-  --text-primary: #004d40;    /* Hijau Laut Dalam (Teks Utama) */
-  --text-secondary: #00796b;  /* Teal (Teks Sekunder/Tanggal) */
-  --accent: #39c5bb;          /* Cyan Khas Karakter Digital / Air Jernih */
-  --accent-hover: #31a69d;    /* Cyan Gelap saat tombol disorot */
-
-  /* Material Design Shadows */
-  --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  
-  /* Radius Sudut */
-  --radius: 8px;
-}
-
-/* =========================================
-   VARIABEL DARK MODE (OTOMATIS)
-   ========================================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Palet Warna Palung Laut */
-    --bg-color: #0b192c;      /* Biru Gelap Kedalaman Laut */
-    --surface: #1a365d;       /* Biru Navy untuk Material Card */
-    --text-primary: #e2e8f0;  /* Busa Ombak (Putih Terang agar terbaca) */
-    --text-secondary: #81e6d9; /* Cyan Neon / Pendaran Ubur-ubur */
-    --accent: #39c5bb;        /* Cyan Terang tetap dipertahankan */
-    --accent-hover: #4fd1c5;  /* Cyan Neon Terang saat tombol disorot */
-    
-    /* Shadow yang lebih halus untuk Dark Mode */
-    --shadow-1: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-2: 0 10px 15px rgba(0, 0, 0, 0.5);
-  }
-}
-
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--md-sys-color-background);
-            color: var(--md-sys-color-on-background);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Navbar */
-        nav {
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--md-elevation-1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        nav a {
-            color: var(--md-sys-color-on-primary-container);
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 1rem;
-        }
-
-        /* Main Content */
-        main {
-            flex: 1;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        /* Material Card for Posts */
-        .card {
-            background-color: var(--md-sys-color-surface);
-            border: 1px solid var(--md-sys-color-surface-variant);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: box-shadow 0.2s ease-in-out;
-        }
-        .card:hover {
-            box-shadow: var(--md-elevation-1);
-        }
-        .card h2 a {
-            color: var(--md-sys-color-primary);
-            text-decoration: none;
-            font-size: 1.5rem;
-        }
-        .card .date {
-            color: var(--md-sys-color-outline);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Buttons & Pagination */
-        .btn, .pagination a, .pagination span {
-            display: inline-block;
-            background-color: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 500;
-            margin: 0.5rem 0.2rem;
-            transition: opacity 0.2s;
-        }
-        .btn:hover, .pagination a:hover { opacity: 0.9; }
-        .pagination { text-align: center; margin-top: 2rem; }
-        .pagination .current { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface); }
-
-        /* Footer */
-        footer {
-            background-color: var(--md-sys-color-surface-variant);
-            color: var(--md-sys-color-on-surface);
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: auto;
-        }
-
-            /* =========================================
-       GAYA KONTEN MARKDOWN (.post-content)
-       ========================================= */
-    .post-content {
-      line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    /* Heading di dalam artikel */
-    .post-content h1, .post-content h2, .post-content h3, 
-    .post-content h4, .post-content h5, .post-content h6 {
-      color: var(--accent);
-      margin-top: 2em;
-      margin-bottom: 0.8em;
-      font-weight: 500;
-    }
-
-    /* Link teks */
-    .post-content a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--accent);
-      transition: all 0.2s ease-in-out;
-    }
-
-    .post-content a:hover {
-      color: var(--accent-hover);
-      border-bottom-style: solid;
-    }
-
-    /* Blockquote (Kutipan) */
-    .post-content blockquote {
-      margin: 1.5em 0;
-      padding: 0.8em 1.5em;
-      border-left: 4px solid var(--accent);
-      background-color: rgba(0, 172, 193, 0.08); /* Biru transparan */
-      border-radius: 0 var(--radius) var(--radius) 0;
-      font-style: italic;
-      color: var(--text-secondary);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .post-content blockquote {
-        background-color: rgba(56, 178, 172, 0.1); /* Teal transparan untuk dark mode */
-      }
-    }
-
-    /* Tabel - Responsive & Material Style */
-    .post-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2em 0;
-      box-shadow: var(--shadow-1);
-      border-radius: var(--radius);
-      overflow: hidden; /* Menjaga sudut melengkung */
-      background-color: var(--surface);
-    }
-
-    .post-content th, .post-content td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-
-    .post-content th {
-      background-color: var(--accent);
-      color: #ffffff;
-      font-weight: 500;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-    }
-
-    .post-content tr:hover {
-      background-color: rgba(0,0,0,0.02);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .post-content th, .post-content td {
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-      .post-content tr:hover {
-        background-color: rgba(255,255,255,0.03);
-      }
-    }
-
-    /* Inline Code */
-    .post-content code {
-      background-color: rgba(0,0,0,0.06);
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.9em;
-      color: #00796b; /* Warna kontras ocean */
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .post-content code {
-        background-color: rgba(255,255,255,0.1);
-        color: #81e6d9;
-      }
-    }
-
-    /* Code Block (Preformatted) - Mendukung Scroll Horizontal */
-    .post-content pre {
-      background-color: #1e293b; /* Warna gelap konsisten untuk blok kode */
-      color: #e2e8f0;
-      padding: 16px;
-      border-radius: var(--radius);
-      overflow-x: auto; /* Sangat penting untuk responsivitas UI di HP */
-      margin: 1.5em 0;
-      box-shadow: var(--shadow-1);
-    }
-
-    .post-content pre code {
-      background-color: transparent;
-      padding: 0;
-      color: inherit;
-      border-radius: 0;
-    }
-
-    /* Gambar */
-    .post-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-1);
-      display: block;
-      margin: 2em auto;
-    }
-
-    /* Horizontal Rule (Garis Pemisah) */
-    .post-content hr {
-      border: 0;
-      height: 1px;
-      background: var(--text-secondary);
-      opacity: 0.2;
-      margin: 3em 0;
-    }
-
-    /* List (Daftar) */
-    .post-content ul, .post-content ol {
-      padding-left: 1.5em;
-      margin: 1em 0;
-    }
-    
-    .post-content li {
-      margin-bottom: 0.5em;
-    }
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 </head>
 <body>
+  <div id="app-container">
+    
+    <header class="app-header">
+      <div class="header-title">{{ site.title }}</div>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+        <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+      </button>
+    </header>
 
-    <nav>
-        <div style="font-size: 1.25rem; font-weight: bold;">{{ site.title }}</div>
-        <div>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </div>
-    </nav>
-
-    <main>
-        {{ content }}
+    <main class="app-content">
+      {{ content }}
     </main>
 
-    <footer>
-        <p>&copy; 2026 {{ site.title }}. Dibangun dengan GitHub Pages.</p>
+    <footer class="app-footer">
+      <p>© {{ 'now' | date: "%Y" }} {{ site.title }}</p>
+      <div class="social-links">
+        <a href="#">Instagram</a> | <a href="#">WhatsApp</a>
+      </div>
     </footer>
 
+    <nav class="bottom-nav">
+      <a href="{{ '/' | relative_url }}" class="nav-item">
+        <span class="material-symbols-outlined">feed</span>
+        <span>Laporan</span>
+      </a>
+      <a href="{{ '/struktur.html' | relative_url }}" class="nav-item">
+        <span class="material-symbols-outlined">group</span>
+        <span>Struktur</span>
+      </a>
+      <a href="{{ '/agenda.html' | relative_url }}" class="nav-item">
+        <span class="material-symbols-outlined">event</span>
+        <span>Agenda</span>
+      </a>
+      <a href="{{ '/undangan.html' | relative_url }}" class="nav-item">
+        <span class="material-symbols-outlined">mail</span>
+        <span>Undangan</span>
+      </a>
+    </nav>
+
+    <button id="fab-top" class="fab">
+      <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
+  </div>
+
+  <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
 </body>
 </html>
