@@ -3,25 +3,59 @@ layout: default
 title: Generator Undangan
 ---
 <div class="card">
-  <h2>Buat Undangan</h2>
-  <p style="color: var(--text-muted); margin-bottom: 20px;">Isi form untuk generate template otomatis.</p>
+  <h2>Buat Undangan Resmi</h2>
+  <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">
+    Lengkapi formulir di bawah ini untuk menghasilkan draf undangan berstandar organisasi.
+  </p>
   
   <div class="form-group">
-    <label>Acara</label>
-    <input type="text" id="acara" class="form-control" placeholder="Rapat Evaluasi">
-  </div>
-  <div class="form-group">
-    <label>Tanggal & Waktu</label>
-    <input type="text" id="waktu" class="form-control" placeholder="Sabtu, 15 Agustus (19.00 WIB)">
-  </div>
-  <div class="form-group">
-    <label>Lokasi</label>
-    <input type="text" id="lokasi" class="form-control" placeholder="Balai Desa">
+    <label>Nomor Surat (Opsional)</label>
+    <input type="text" id="nomor" class="form-control" placeholder="001/KT-RW/VIII/2026">
   </div>
   
-  <button id="btn-generate" class="btn">Generate Undangan</button>
+  <div class="form-group">
+    <label>Perihal / Agenda Utama</label>
+    <input type="text" id="acara" class="form-control" placeholder="Rapat Evaluasi Program Kerja">
+  </div>
+
+  <div class="form-group">
+    <label>Kepada Yth.</label>
+    <input type="text" id="tujuan" class="form-control" placeholder="Seluruh Pengurus Karang Taruna">
+  </div>
   
-  <textarea id="hasil-undangan" class="form-control" rows="8" style="margin-top:20px; display:none;" readonly></textarea>
-  <button id="btn-copy" class="btn" style="background: var(--primary); display:none;">Copy Text</button>
-  <a id="btn-wa" class="btn" href="#" target="_blank" style="background: #25D366; color: white; display:none; text-align:center; text-decoration:none;">Share ke WhatsApp</a>
+  <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="flex: 1;">
+      <label style="display: block; margin-bottom: 8px; font-weight: 500;">Hari/Tanggal</label>
+      <input type="text" id="tanggal" class="form-control" placeholder="Sabtu, 15 Agustus 2026">
+    </div>
+    <div style="flex: 1;">
+      <label style="display: block; margin-bottom: 8px; font-weight: 500;">Waktu (WIB)</label>
+      <input type="text" id="waktu" class="form-control" placeholder="19.00">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Lokasi / Tempat</label>
+    <input type="text" id="lokasi" class="form-control" placeholder="Balai Pertemuan RW">
+  </div>
+
+  <div class="form-group">
+    <label>Nama Penandatangan (Pengundang)</label>
+    <input type="text" id="pengundang" class="form-control" placeholder="Budi Santoso (Ketua)">
+  </div>
+  
+  <button id="btn-generate" class="btn">Generate Undangan Resmi</button>
+  
+  <div id="result-container" style="display:none; margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px;">
+    <label style="font-weight: 700; color: var(--primary);">Hasil Undangan:</label>
+    <textarea id="hasil-undangan" class="form-control" rows="14" style="margin-top: 8px; font-family: monospace; font-size: 0.85rem; line-height: 1.5;" readonly></textarea>
+    
+    <div style="display: flex; gap: 12px; margin-top: 12px;">
+      <button id="btn-copy" class="btn" style="flex: 1; background: var(--surface); color: var(--text-main);">Salin Teks</button>
+      <a id="btn-wa" class="btn" href="#" target="_blank" style="flex: 1; background: #25D366; color: white; text-align:center; text-decoration:none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 1.2rem;">send</span>
+        Kirim WA
+      </a>
+    </div>
+  </div>
 </div>
