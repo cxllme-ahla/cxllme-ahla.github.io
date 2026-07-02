@@ -1,0 +1,27 @@
+---
+layout: default
+title: Generator Undangan
+---
+<div class="card">
+  <h2>Buat Undangan</h2>
+  <p style="color: var(--text-muted); margin-bottom: 20px;">Isi form untuk generate template otomatis.</p>
+  
+  <div class="form-group">
+    <label>Acara</label>
+    <input type="text" id="acara" class="form-control" placeholder="Rapat Evaluasi">
+  </div>
+  <div class="form-group">
+    <label>Tanggal & Waktu</label>
+    <input type="text" id="waktu" class="form-control" placeholder="Sabtu, 15 Agustus (19.00 WIB)">
+  </div>
+  <div class="form-group">
+    <label>Lokasi</label>
+    <input type="text" id="lokasi" class="form-control" placeholder="Balai Desa">
+  </div>
+  
+  <button id="btn-generate" class="btn">Generate Undangan</button>
+  
+  <textarea id="hasil-undangan" class="form-control" rows="8" style="margin-top:20px; display:none;" readonly></textarea>
+  <button id="btn-copy" class="btn" style="background: var(--primary); display:none;">Copy Text</button>
+  <a id="btn-wa" class="btn" href="#" target="_blank" style="background: #25D366; color: white; display:none; text-align:center; text-decoration:none;">Share ke WhatsApp</a>
+</div>
