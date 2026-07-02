@@ -48,43 +48,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Generator Undangan Logic
+  // 4. Generator Undangan Logic (Versi Profesional)
   const btnGenerate = document.getElementById('btn-generate');
   if(btnGenerate){
     btnGenerate.addEventListener('click', () => {
-      const acara = document.getElementById('acara').value;
-      const waktu = document.getElementById('waktu').value;
-      const lokasi = document.getElementById('lokasi').value;
+      // Mengambil nilai dari form
+      const nomor = document.getElementById('nomor').value || '---';
+      const acara = document.getElementById('acara').value || '[Perihal/Agenda]';
+      const tujuan = document.getElementById('tujuan').value || '[Target Undangan]';
+      const tanggal = document.getElementById('tanggal').value || '[Hari, Tanggal]';
+      const waktu = document.getElementById('waktu').value || '[Waktu]';
+      const lokasi = document.getElementById('lokasi').value || '[Lokasi]';
+      const pengundang = document.getElementById('pengundang').value || '[Nama Pengundang]';
       
-      const template = `Assalamu'alaikum Wr. Wb.
+      // Menyusun template surat resmi
+      const template = `Nomor     : ${nomor}
+Perihal   : Undangan ${acara}
+  
+Kepada Yth.
+${tujuan}
+di Tempat
+  
+Assalamu'alaikum Wr. Wb. / Salam Sejahtera,
+  
+Dengan hormat,
+Sehubungan dengan akan dilaksanakannya ${acara}, kami mengundang Bapak/Ibu/Saudara/i untuk dapat hadir pada:
+  
+Hari/Tanggal : ${tanggal}
+Waktu        : ${waktu} WIB - Selesai
+Tempat       : ${lokasi}
+  
+Mengingat pentingnya agenda tersebut, kami sangat mengharapkan kehadiran tepat waktu.
+  
+Demikian undangan ini kami sampaikan. Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+  
+Wassalamu'alaikum Wr. Wb.
+  
+Hormat kami,
+Pengurus Karang Taruna
+  
+${pengundang}`;
       
-Salam sejahtera untuk kita semua.
-Mengharap kehadiran rekan-rekan pengurus Karang Taruna pada:
-
-Agenda: ${acara || '[Nama Agenda]'}
-Waktu: ${waktu || '[Waktu]'}
-Tempat: ${lokasi || '[Lokasi]'}
-
-Mengingat pentingnya acara ini, dimohon kehadirannya tepat waktu.
-Terima kasih.`;
-      
+      // Menampilkan hasil
+      const resultContainer = document.getElementById('result-container');
       const textArea = document.getElementById('hasil-undangan');
-      textArea.value = template;
-      textArea.style.display = 'block';
       
+      textArea.value = template;
+      resultContainer.style.display = 'block';
+      
+      // Menyiapkan tombol aksi
       const btnCopy = document.getElementById('btn-copy');
       const btnWa = document.getElementById('btn-wa');
-      btnCopy.style.display = 'block';
-      btnWa.style.display = 'block';
       
+      // Membuat tautan WhatsApp yang di-encode
       const waLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(template)}`;
       btnWa.href = waLink;
       
+      // Logika salin ke clipboard
       btnCopy.onclick = () => {
         navigator.clipboard.writeText(template);
-        btnCopy.textContent = "Berhasil Disalin!";
-        setTimeout(() => btnCopy.textContent = "Copy Text", 2000);
+        const originalText = btnCopy.textContent;
+        btnCopy.textContent = "Berhasil Disalin! ✓";
+        btnCopy.style.background = "var(--success)";
+        
+        setTimeout(() => {
+          btnCopy.textContent = originalText;
+          btnCopy.style.background = "var(--surface)";
+        }, 2000);
       };
     });
   }
-});
