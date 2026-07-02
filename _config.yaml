@@ -13,3 +13,7 @@ defaults:
       path: ""
     values:
       layout: "default"
+collections:
+  agenda:
+    output: true
+    permalink: /agenda/:path/
