@@ -1,0 +1,11 @@
+- nama: "Budi Santoso"
+  jabatan: "Ketua Umum"
+  foto: "https://via.placeholder.com/150" # Atau path lokal di /assets/img/
+
+- nama: "Miku Hatsune"
+  jabatan: "Divisi Humas & Kreatif"
+  foto: "https://via.placeholder.com/150"
+
+- nama: "Andi Wijaya"
+  jabatan: "Sekretaris"
+  foto: "https://via.placeholder.com/150"
