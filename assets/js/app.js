@@ -1,28 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
+  
+  // ==========================================
   // 1. Dark Mode Logic
+  // ==========================================
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
   const currentTheme = localStorage.getItem('theme');
 
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
-    themeIcon.textContent = currentTheme === 'dark' ? 'light_mode' : 'dark_mode';
+    if (themeIcon) {
+      themeIcon.textContent = currentTheme === 'dark' ? 'light_mode' : 'dark_mode';
+    }
   }
 
-  themeToggle.addEventListener('click', () => {
-    let theme = document.documentElement.getAttribute('data-theme');
-    if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
-      themeIcon.textContent = 'dark_mode';
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-      themeIcon.textContent = 'light_mode';
-    }
-  });
+  if (themeToggle && themeIcon) {
+    themeToggle.addEventListener('click', () => {
+      let theme = document.documentElement.getAttribute('data-theme');
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+      }
+    });
+  }
 
-  // 2. Skeleton Loading Removal
+  // ==========================================
+  // 2. Skeleton Loading Removal (Halaman Struktur)
+  // ==========================================
   const skeleton = document.getElementById('skeleton-struktur');
   const realData = document.getElementById('data-struktur');
   if (skeleton && realData) {
@@ -30,12 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
       skeleton.style.display = 'none';
       realData.style.display = 'flex';
       realData.style.flexDirection = 'column';
-    }, 800); // Simulasi load mulus
+    }, 800); 
   }
 
+  // ==========================================
   // 3. Floating Action Button (Back to Top)
+  // ==========================================
   const fab = document.getElementById('fab-top');
-  if(fab){
+  if (fab) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
         fab.style.display = 'flex';
@@ -48,11 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
   // 4. Generator Undangan Logic (Versi Profesional)
+  // ==========================================
   const btnGenerate = document.getElementById('btn-generate');
-  if(btnGenerate){
+  
+  if (btnGenerate) {
     btnGenerate.addEventListener('click', () => {
-      // Mengambil nilai dari form
+      // Mengambil nilai dari form form, set default jika kosong
       const nomor = document.getElementById('nomor').value || '---';
       const acara = document.getElementById('acara').value || '[Perihal/Agenda]';
       const tujuan = document.getElementById('tujuan').value || '[Target Undangan]';
@@ -89,32 +103,36 @@ Pengurus Karang Taruna
   
 ${pengundang}`;
       
-      // Menampilkan hasil
+      // Tampilkan kontainer hasil
       const resultContainer = document.getElementById('result-container');
       const textArea = document.getElementById('hasil-undangan');
       
       textArea.value = template;
       resultContainer.style.display = 'block';
       
-      // Menyiapkan tombol aksi
+      // Menyiapkan tombol Salin dan WhatsApp
       const btnCopy = document.getElementById('btn-copy');
       const btnWa = document.getElementById('btn-wa');
       
-      // Membuat tautan WhatsApp yang di-encode
+      // Buat tautan WhatsApp
       const waLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(template)}`;
       btnWa.href = waLink;
       
-      // Logika salin ke clipboard
+      // Aksi saat tombol Salin diklik
       btnCopy.onclick = () => {
         navigator.clipboard.writeText(template);
         const originalText = btnCopy.textContent;
         btnCopy.textContent = "Berhasil Disalin! ✓";
         btnCopy.style.background = "var(--success)";
+        btnCopy.style.color = "#1C1B1F";
         
+        // Kembalikan tombol ke kondisi semula setelah 2 detik
         setTimeout(() => {
           btnCopy.textContent = originalText;
           btnCopy.style.background = "var(--surface)";
+          btnCopy.style.color = "var(--text-main)";
         }, 2000);
       };
     });
   }
+});
